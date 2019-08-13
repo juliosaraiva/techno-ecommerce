@@ -4,6 +4,17 @@ const vm = new Vue({
     produtos: [],
     nova_mensagem: "Mensagem"
   },
+  filters: {
+    changeValue(value) {
+      return value.toLocaleString("en-US", {
+        style: "currency",
+        currency: "usd"
+      });
+    },
+    upperCase(value) {
+      return value.toUpperCase();
+    }
+  },
   methods: {
     getProdutos() {
       fetch("./api/produtos.json")

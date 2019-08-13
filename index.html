@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Techno E-commerce</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/vue.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
@@ -15,8 +15,8 @@
             <div v-for="produto in produtos" :key="produto.id" class="produto">
                 <img :src="produto.img" :alt="produto.nome" class="produto_img" />
                 <div class="produto_info">
-                    <span class="produto_preco">{{ produto.preco }}</span>
-                    <h2 class="produto_titulo">{{ produto.nome }}</h2>
+                    <span class="produto_preco">{{ produto.preco | changeValue }}</span>
+                    <h2 class="produto_titulo">{{ produto.nome | upperCase }}</h2>
                 </div>
             </div>
         </section>
