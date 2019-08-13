@@ -11,12 +11,18 @@
 </head>
 <body>
     <div id="app">
+
+        <section class="modal">
+            {{ produto }}
+        </section>
+
+
         <section class="produtos">
-            <div v-for="produto in produtos" :key="produto.id" class="produto">
-                <img :src="produto.img" :alt="produto.nome" class="produto_img" />
+            <div v-for="item in produtos" @click="getProduto(item.nome)" :key="item.id" class="produto">
+                <img :src="item.img" :alt="item.nome" class="produto_img" />
                 <div class="produto_info">
-                    <span class="produto_preco">{{ produto.preco | changeValue }}</span>
-                    <h2 class="produto_titulo">{{ produto.nome | upperCase }}</h2>
+                    <span class="produto_preco">{{ item.preco | changeValue }}</span>
+                    <h2 class="produto_titulo">{{ item.nome | upperCase }}</h2>
                 </div>
             </div>
         </section>
