@@ -6,13 +6,14 @@ const vm = new Vue({
     evento: "",
     carrinho: [],
     mensagemAlerta: "Item adicionado",
-    alertaAtivo: false
+    alertaAtivo: false,
+    carrinhoAtivo: false
   },
   filters: {
     changeValue(value) {
       return value.toLocaleString("en-US", {
         style: "currency",
-        currency: "USD"
+        currency: "BRL"
       });
     },
     upperCase(value) {
@@ -53,15 +54,20 @@ const vm = new Vue({
         this.produto = false;
       }
     },
+    clickForaCarrinho({ target, currentTarget }) {
+      if (target === currentTarget) {
+        this.carrinhoAtivo = false;
+      }
+    },
     adicionarItem() {
       this.produto.estoque--;
       const { id, nome, preco } = this.produto;
       this.carrinho.push({ id, nome, preco });
-      this.alerta(`${nome} adicionado ao carrinho`)
+      this.alerta(`${nome} adicionado ao carrinho`);
     },
     removerItem(index) {
       this.carrinho.splice(index, 1);
-      this.alerta(`Item removido do carrinho`)
+      this.alerta(`Item removido do carrinho`);
     },
     verificaLocalStorage() {
       if (window.localStorage.carrinho) {
@@ -73,27 +79,24 @@ const vm = new Vue({
       this.alertaAtivo = true;
       setTimeout(() => {
         this.alertaAtivo = false;
-      }, 1500)
+      }, 1500);
     },
     router() {
       const hash = document.location.hash;
-      if (hash)
-        this.getProduto(hash.replace("#", ""));
+      if (hash) this.getProduto(hash.replace("#", ""));
     }
   },
   watch: {
     produto() {
       document.title = this.produto.nome || "Techno";
-      const hash = this.produto.id || ""
-      history.pushState(null, null, `#${hash}`)
+      const hash = this.produto.id || "";
+      history.pushState(null, null, `#${hash}`);
     },
     carrinho() {
       window.localStorage.carrinho = JSON.stringify(this.carrinho);
     }
   },
   created() {
-    this.getProdutos(),
-      this.verificaLocalStorage(),
-      this.router()
+    this.getProdutos(), this.verificaLocalStorage(), this.router();
   }
 });
